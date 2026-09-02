@@ -33,7 +33,7 @@ SELECT
     now_time,
     prev_purchase,
     diff_minutes,
-    DENSE_RANK() OVER (PARTITION BY user_id ORDER BY now_time) AS purchase_order
+    ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY now_time) AS purchase_order
 FROM raw_timeline
 WHERE diff_minutes > 0 OR now_time = prev_purchase;
 
